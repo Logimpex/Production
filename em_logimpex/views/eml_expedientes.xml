@@ -6,7 +6,6 @@
         <field name="arch" type="xml">
             <tree sample="1">
                 <field name="name" />
-                <field name="create_date" />
                 <field name="operation_type" options="{'no_create': True}" />
                 <field name="service_type" />
                 <field name="move_type" />
@@ -16,6 +15,7 @@
                 <field name="destiny" options="{'no_create': True}" />
                 <field name="start_date" />
                 <field name="end_date" />
+                <field name="create_date" string="Emision" />
                 <field name="partner_id" optional="show" />
                 <field name="responsable_id" optional="show" options="{'no_create': True}" />
                 <field name="ref" optional="show" />
@@ -45,7 +45,6 @@
                     <group name="info" cols="2" string="Datos Generales">
                         <group name="info_left">
                             <field name="active" invisible="1" />
-                            <field name="create_date" />
                             <field name="operation_type" options="{'no_create': True}" />
                             <field name="service_type" />
                             <field name="move_type" />
@@ -57,6 +56,7 @@
                             <field name="pza_num" />
                             <field name="origin" options="{'no_create': True}" />
                             <field name="destiny" options="{'no_create': True}" />
+                            <field name="create_date" string="Emision" />
                             <field name="agent_id" options="{'no_create': True}" domain="[('category_id', '=', 'Agente')]" />
                             <field name="start_date" />
                             <field name="end_date" />
