@@ -111,6 +111,12 @@
                                 </group>
                             </group>
                         </page>
+                        <page string="Informacion Adicional" name="more_info">
+                            <group>
+                                <field name="project_id" options="{'no_create': True}"/>
+                                <field name="account_analytic_id" options="{'no_create': True}" />
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

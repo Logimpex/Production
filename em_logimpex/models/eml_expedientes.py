@@ -76,6 +76,11 @@ class EMLExpedientes(models.Model):
 	# Counter Projects
 	expedientes_count = fields.Integer(compute='_compute_projects_count', string='Proyectos')
 
+	# Información Adicional
+	project_id = fields.Many2one('project.project', string='Proyecto')
+	account_analytic_id = fields.Many2one('account.analytic.account', string='Cuenta analítica')
+
+
 	@api.model
 	def create(self, vals):
 		if not vals.get('note'):
