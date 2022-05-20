@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree sample="1">
                 <field name="name" />
+                <field name="create_date" />
                 <field name="operation_type" options="{'no_create': True}" />
                 <field name="service_type" />
                 <field name="move_type" />
@@ -44,6 +45,7 @@
                     <group name="info" cols="2" string="Datos Generales">
                         <group name="info_left">
                             <field name="active" invisible="1" />
+                            <field name="create_date" />
                             <field name="operation_type" options="{'no_create': True}" />
                             <field name="service_type" />
                             <field name="move_type" />
