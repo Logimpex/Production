@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree sample="1">
                 <field name="name" />
+                <field name="create_date" />
                 <field name="operation_type" options="{'no_create': True}" />
                 <field name="service_type" />
                 <field name="move_type" />
@@ -15,10 +16,8 @@
                 <field name="destiny" options="{'no_create': True}" />
                 <field name="start_date" />
                 <field name="end_date" />
-                <field name="create_date" string="Emision" />
                 <field name="partner_id" optional="show" />
                 <field name="responsable_id" optional="show" options="{'no_create': True}" />
-                <field name="ref" optional="show" />
                 <field name="load" optional="show" options="{'no_create': True}" />
                 <field name="unload" optional="show" options="{'no_create': True}" />
                 <field name="master" optional="show" />
@@ -34,7 +33,16 @@
         <field name="model">eml.expedientes</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_create_project_analytic_account" string="Crear Proyecto y Cuenta Analítica" type="object" class="oe_highlight" attrs="{'invisible': [('more_info', '=', True)]}"/>
+                </header>
                 <sheet>
+<!--                    <div class="oe_button_box" name="button_box">-->
+<!--                        <button class="oe_stat_button" name="action_open_projects"-->
+<!--                        type="object" icon="fa-book">-->
+<!--                            <field name="projects_count" string="Proyectos" widget="statinfo"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
                     <group>
                         <div class="oe_title">
                             <h1>
@@ -45,6 +53,8 @@
                     <group name="info" cols="2" string="Datos Generales">
                         <group name="info_left">
                             <field name="active" invisible="1" />
+                            <field name="more_info" invisible="1" />
+                            <field name="create_date" string="Emisión" />
                             <field name="operation_type" options="{'no_create': True}" />
                             <field name="service_type" />
                             <field name="move_type" />
@@ -56,7 +66,6 @@
                             <field name="pza_num" />
                             <field name="origin" options="{'no_create': True}" />
                             <field name="destiny" options="{'no_create': True}" />
-                            <field name="create_date" string="Emision" />
                             <field name="agent_id" options="{'no_create': True}" domain="[('category_id', '=', 'Agente')]" />
                             <field name="start_date" />
                             <field name="end_date" />
@@ -66,7 +75,6 @@
                             <field name="invoice_partner_id" />
                             <field name="vendor_id" domain="[('category_id', '=', 'Vendedor')]" />
                             <field name="responsable_id" widget="many2one_avatar_user" options="{'no_create': True}" />
-                            <field name="ref" />
                             <field name="pickup" />
                             <field name="delivery" />
                             <field name="load" options="{'no_create': True}" />
@@ -84,7 +92,7 @@
                     <group name="info2" cols="2" string="Datos Adicionales">
                         <group name="info2_left">
                             <field name="agent_mx_id" options="{'no_create': True}" domain="[('category_id', '=', 'Agente')]" />
-                            <field name="buque_id" />
+                            <field name="buque_id" options="{'no_create': True}" />
                             <field name="travel_id" />
                             <field name="internal_ref" />
                             <field name="external_ref" />
@@ -97,6 +105,11 @@
                         <page string="Contenedores" name="containers">
                             <group name="contenedores_lines">
                                 <field name="containers_line" widget="one2many" nolabel="1" />
+                            </group>
+                        </page>
+                        <page string="Asientos Contables" name="containers">
+                            <group name="account_move_lines">
+                                <field name="account_move_lines" widget="one2many" nolabel="1" />
                             </group>
                         </page>
                         <page string="Documentación" name="expedientes_docs_root">
@@ -113,7 +126,7 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Informacion Adicional" name="more_info">
+                        <page string="Información Adicional" name="more_info">
                             <group>
                                 <field name="project_id" options="{'no_create': True}"/>
                                 <field name="account_analytic_id" options="{'no_create': True}" />
@@ -135,9 +148,12 @@
             <search string="Expedientes">
                 <field name="name" />
                 <field name="partner_id" />
-                <field name="ref" />
                 <field name="master" />
                 <field name="house" />
+                <field name="buque_id" />
+                <field name="travel_id" />
+                <field name="internal_ref" />
+                <field name="external_ref" />
                 <field name="note" />
                 <separator />
                 <filter string="Cargo" name="service_type" domain="[('service_type', '=', 'load')]" />
