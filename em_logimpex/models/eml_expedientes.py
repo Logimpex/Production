@@ -68,8 +68,8 @@ class EMLExpedientes(models.Model):
 	# Líneas de Contenedores
 	buque_id = fields.Many2one('eml.buques', string='Buque')
 	travel_id = fields.Char(string='Número de Viaje')
-	internal_ref = fields.Char(string='Referencia Interna')
-	external_ref = fields.Char(string='Referencia Externa')
+	internal_ref = fields.Char(string='Ref. Interna')
+	external_ref = fields.Char(string='Ref. Externa')
 	containers_line = fields.Many2many('eml.containers')
 	account_move_lines = fields.Many2many('account.move')
 
