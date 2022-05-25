@@ -79,7 +79,7 @@ class EMLExpedientes(models.Model):
 	# Información Adicional
 	project_id = fields.Many2one('project.project', string='Proyecto')
 	account_analytic_id = fields.Many2one('account.analytic.account', string='Cuenta analítica')
-	more_info = fields.Boolean(string="Active", default=False)
+	more_info = fields.Boolean(default=False)
 
 	@api.model
 	def create(self, vals):
