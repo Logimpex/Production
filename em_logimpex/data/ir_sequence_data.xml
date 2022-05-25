@@ -15,7 +15,6 @@
             <field name="name">Secuencia de Folio Control Proveedores</field>
             <field name="code">eml.control.proveedores.sequence</field>
             <field name="padding">5</field>
-            <field name="next_number_actual">5001</field>
             <field name="number_increment">1</field>
             <field name="company_id" eval="False" />
         </record>
