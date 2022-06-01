@@ -31,18 +31,21 @@ class EMLExpedientes(models.Model):
 	pza_num = fields.Integer(string='# de Piezas')
 	amount = fields.Monetary(string='Valor')
 	currency_id = fields.Many2one('res.currency', string='Moneda')
-	note = fields.Text(string='Descripción')
+	note = fields.Text(string='Notas')
 
 	# Información de Origen / Destino / Viaje
 	origin = fields.Many2one('res.country', string='Origen', required=True)
 	destiny = fields.Many2one('res.country', string='Destino', required=True)
-	start_date = fields.Date(string='Fecha Inicio', default=fields.Date.today, required=True)
-	end_date = fields.Date(string='Fecha Fin', default=fields.Date.today)
+	start_date = fields.Date(string='Fecha Est. Inicio', default=fields.Date.today, required=True)
+	end_date = fields.Date(string='Fecha Est. Fin', default=fields.Date.today)
 	partner_id = fields.Many2one('res.partner', string='Cliente')
+	invoice_partner_id = fields.Many2one('res.partner', string='Cliente a Facturar')
+	vendor_id = fields.Many2one('res.partner', string='Vendedor')
+	agent_id = fields.Many2one('res.partner', string='Agente')
+	agent_mx_id = fields.Many2one('res.partner', string='Agente en México')
 	responsable_id = fields.Many2one('res.users', string='Responsable')
 
 	# Información de Seguimiento
-	ref = fields.Char(string='Referencia Interna')
 	pickup = fields.Char(string='Recolección')
 	load = fields.Many2one('eml.seaports.airports', string='Carga')
 	unload = fields.Many2one('eml.seaports.airports', string='Descarga')
@@ -63,7 +66,22 @@ class EMLExpedientes(models.Model):
 	doc_ficha_tecnica = fields.Binary(string="Ficha Técnica")
 
 	# Líneas de Contenedores
+	buque_id = fields.Many2one('eml.buques', string='Buque')
+	travel_id = fields.Char(string='Número de Viaje')
+	internal_ref = fields.Char(string='Ref. Interna')
+	external_ref = fields.Char(string='Ref. Externa')
 	containers_line = fields.Many2many('eml.containers')
+	# account_move_lines = fields.One2many('account.move.line')
+
+	# Counter Projects
+	expedientes_count = fields.Integer(compute='_compute_project_count', string='Proyectos')
+	facturas_count = fields.Integer(compute='_compute_invoice_count', string='Facturas')
+	pagos_count = fields.Integer(compute='_compute_payment_count', string='Pagos')
+
+	# Información Adicional
+	project_id = fields.Many2one('project.project', string='Proyecto')
+	account_analytic_id = fields.Many2one('account.analytic.account', string='Cuenta analítica')
+	more_info = fields.Boolean(default=False)
 
 	@api.model
 	def create(self, vals):
@@ -74,3 +92,67 @@ class EMLExpedientes(models.Model):
 				res = super(EMLExpedientes, self).create(vals)
 				return res
 
+	def action_create_project_analytic_account(self):
+		vals = {
+			'name': self.display_name,
+			'partner_id': self.partner_id.id,
+			'user_id': self.responsable_id.id,
+			'date_start': self.start_date,
+			'date': self.end_date,
+			'analytic_account_id': self.account_analytic_id.id
+		}
+		self.env['project.project'].create(vals)
+		vals = {
+			'name': self.display_name,
+			'partner_id': self.partner_id.id,
+		}
+		self.env['account.analytic.account'].create(vals)
+		msj = "<b>¡Se ha creado un proyecto y una cuenta analítica!</b>"
+		self.message_post(body=msj)
+		for rec in self:
+			rec.more_info = True
+
+	def _compute_invoice_count(self):
+		for rec in self:
+			invoice_count = self.env['account.move'].search_count([('partner_id', '=', rec.partner_id.id)])
+			rec.facturas_count = invoice_count
+
+	def action_view_invoices(self):
+		return {
+			'type': 'ir.actions.act_window',
+			'name': 'Facturas',
+			'res_model': 'account.move',
+			'domain': [('partner_id', '=', self.partner_id.id)],
+			'view_mode': 'tree,form',
+			'target': 'current',
+		}
+
+	def _compute_project_count(self):
+		for rec in self:
+			invoice_count = self.env['project.project'].search_count([('partner_id', '=', rec.partner_id.id)])
+			rec.expedientes_count = invoice_count
+
+	def action_view_projects(self):
+		return {
+			'type': 'ir.actions.act_window',
+			'name': 'Proyectos',
+			'res_model': 'project.project',
+			'domain': [('partner_id', '=', self.partner_id.id)],
+			'view_mode': 'tree,form',
+			'target': 'current',
+		}
+
+	def _compute_payment_count(self):
+		for rec in self:
+			payment_count = self.env['account.payment'].search_count([('partner_id', '=', rec.partner_id.id)])
+			rec.pagos_count = payment_count
+
+	def action_view_payments(self):
+		return {
+			'type': 'ir.actions.act_window',
+			'name': 'Pagos',
+			'res_model': 'account.payment',
+			'domain': [('partner_id', '=', self.partner_id.id)],
+			'view_mode': 'tree,form',
+			'target': 'current',
+		}

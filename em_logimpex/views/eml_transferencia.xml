@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="transferencia_tree" model="ir.ui.view">
+        <field name="name">eml.transferencia.tree</field>
+        <field name="model">eml.transferencia</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="solicitud" />
+                <field name="eml_expediente" />
+                <field name="fecha_pago" />
+                <field name="monto" />
+                <field name="currency_id" />
+                <field name="concept" />
+                <field name="solicitante_id" />
+                <field name="auth_user1" />
+                <field name="auth_user2" />
+                <field name="anticipo" optional="show" />
+                <field name="anticipo_monto" optional="show" />
+                <field name="anticipo_currency_id" optional="show" />
+            </tree>
+        </field>
+    </record>
+    <record id="transferencia_form" model="ir.ui.view">
+        <field name="name">eml.transferencia.form</field>
+        <field name="model">eml.transferencia</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="solicitud" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Beneficiario" />
+                            <field name="eml_expediente" options="{'no_create': True}" />
+                            <field name="country_id" options="{'no_create': True}" />
+                            <field name="partner_id_email" />
+                        </group>
+                        <group>
+                            <field name="solicitante_id" options="{'no_create': True}" />
+                            <field name="create_date" string="Fecha Elaboración" />
+                            <field name="fecha_pago" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Información del Beneficiario">
+                            <field name="partner_id_vat" />
+                            <field name="num_proveedor" />
+                            <field name="account_type" />
+                            <field name="account_id" />
+                        </group>
+                        <group string="Información Bancaria">
+                            <field name="partner_id_accounts" domain="[('partner_id', '=', partner_id)]" />
+                            <label for="partner_id_acc_bank" />
+                            <div>
+                                <field name="partner_id_acc_bank" class="oe_inline" />
+                                <span class="o_form_label" />
+                                <field name="partner_id_acc_c_bank" class="oe_inline" />
+                            </div>
+                            <field name="partner_id_acc_currency" />
+                            <field name="partner_id_acc_number" />
+                            <field name="partner_id_acc_clabe" />
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Anticipo">
+                            <field name="concept" />
+                            <label for="monto" />
+                            <div>
+                                <field name="monto" class="oe_inline" />
+                                <span class="o_form_label" />
+                                <field name="partner_id_acc_currency" class="oe_inline" />
+                            </div>
+                            <field name="anticipo" />
+                            <field name="anticipo_monto" />
+                            <field name="anticipo_currency_id" options="{'no_create': True}" />
+                        </group>
+                        <group string="Autorización">
+                            <field name="auth_user1" options="{'no_create': True}" />
+                            <field name="auth_check1" string="Autorizar Nivel 1" attrs="{'readonly': [('auth_user1','!=', '2')]}" />
+                            <field name="auth_user2" options="{'no_create': True}" />
+                            <field name="auth_check2" string="Autorizar Nivel 2" attrs="{'readonly': [('auth_user1','!=', '2')]}" />
+                        </group>
+                    </group>
+                </sheet>
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="transferencia_search" model="ir.ui.view">
+        <field name="name">eml.transferencia.search</field>
+        <field name="model">eml.transferencia</field>
+        <field name="arch" type="xml">
+            <search string="transferencia">
+                <field name="solicitud" />
+                <field name="eml_expediente" />
+                <field name="fecha_pago" />
+                <field name="monto" />
+                <field name="concept" />
+                <field name="solicitante_id" />
+                <field name="auth_user1" />
+                <field name="auth_user2" />
+                <separator />
+                <group expand="1" string="Group by">
+                    <separator />
+                    <filter string="Expediente" name="groupby_eml_expediente" context="{'group_by':'eml_expediente'}" />
+                    <filter string="Fecha de Pago" name="groupby_fecha_pago" context="{'group_by':'fecha_pago'}" />
+                    <filter string="Moneda" name="groupby_currency_id" context="{'group_by':'currency_id'}" />
+                    <filter string="Solicitante" name="groupby_solicitante_id" context="{'group_by':'solicitante_id'}" />
+                    <filter string="Autorización Nivel 1" name="groupby_auth_user1" context="{'group_by':'auth_user1'}" />
+                    <filter string="Autorización Nivel 2" name="groupby_auth_user2" context="{'group_by':'auth_user2'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_eml_transferencia" model="ir.actions.act_window">
+        <field name="name">Transferencia</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">eml.transferencia</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first record!
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_eml_transferencia" name="Solicitud de Transferencia" parent="menu_eml_expedientes" action="action_eml_transferencia" sequence="20" />
+</odoo>
