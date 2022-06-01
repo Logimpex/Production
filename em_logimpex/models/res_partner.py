@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+# Odoo.sh  odoo-bin -u em_logimpex --stop-after-init
+# Pycham -c odoo.conf -d devd15 -u em_logimpex
 
 from odoo import fields, models
 
