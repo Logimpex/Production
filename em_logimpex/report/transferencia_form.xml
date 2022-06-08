@@ -168,9 +168,13 @@
                             </div>
                         </div>
                         <br />
-                        <!--                        <div style="position:absolute;top:850px; page-break-inside: avoid;">-->
-                        <div style="page-break-inside: avoid;">
-                            <div class="row">
+                        <div class="row">
+                            <div class="col-12">
+                            </div>
+                        </div>
+                        <br />
+                        <div style="position:absolute;top:850px; page-break-inside: avoid;">
+                            <div class="row col-12">
                                 <div class="col-4">
                                     <span>
                                         <strong>Solicitante:</strong>
@@ -179,7 +183,7 @@
                                     <div class="signature">
                                         <br />
                                         <br />
-                                        <div>________________________</div>
+                                        <div>____________________</div>
                                         <div>
                                             <span t-field="o.solicitante_id.name" />
                                         </div>
