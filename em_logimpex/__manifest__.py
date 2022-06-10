@@ -26,8 +26,8 @@
         'data/eml.seaports.airports.csv',
         'data/eml.buques.csv',
         # Reports
-        'report/transferencia_form.xml',
         'report/report.xml',
+        'report/transferencia_form.xml',
         # Views
         'views/eml_expedientes.xml',
         'views/eml_operation_type.xml',
