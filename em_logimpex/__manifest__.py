@@ -51,7 +51,7 @@
         # Sequence
         'data/ir_sequence_data.xml',
     ],
-    'demo': [],
+    'demo': [ ],
     'installable': True,
     'application': True,
     'auto_install': False,
