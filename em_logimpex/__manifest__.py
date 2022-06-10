@@ -25,6 +25,9 @@
         # Imports
         'data/eml.seaports.airports.csv',
         'data/eml.buques.csv',
+        # Reports
+        'report/report.xml',
+        'report/transferencia_form.xml',
         # Views
         'views/eml_expedientes.xml',
         'views/eml_operation_type.xml',
@@ -47,12 +50,9 @@
         'data/eml_tags.xml',
         # Sequence
         'data/ir_sequence_data.xml',
-        # Reports
-        'report/transferencia_form.xml',
-        'report/report.xml',
     ],
     'demo': [],
     'installable': True,
     'application': True,
-    'auto_install': True,
+    'auto_install': False,
 }

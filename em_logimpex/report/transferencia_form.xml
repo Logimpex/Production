@@ -173,8 +173,8 @@
                             </div>
                         </div>
                         <br />
-                        <div style="position:absolute;top:850px; page-break-inside: avoid;">
-                            <div class="row col-12">
+                        <div style="position:absolute;top:750px; page-break-inside: avoid;">
+                            <div class="row">
                                 <div class="col-4">
                                     <span>
                                         <strong>Solicitante:</strong>
