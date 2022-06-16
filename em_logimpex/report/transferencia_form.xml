@@ -173,55 +173,53 @@
                             </div>
                         </div>
                         <br />
-                        <div style="position:absolute;top:750px; page-break-inside: avoid;">
-                            <div class="row">
-                                <div class="col-4">
-                                    <span>
-                                        <strong>Solicitante:</strong>
-                                        <br />
-                                    </span>
-                                    <div class="signature">
-                                        <br />
-                                        <br />
-                                        <div>____________________</div>
-                                        <div>
-                                            <span t-field="o.solicitante_id.name" />
-                                        </div>
+                        <div class="row" style="position:absolute;top:850px; page-break-inside: avoid;">
+                            <div class="col-4">
+                                <span>
+                                    <strong>Solicitante:</strong>
+                                    <br />
+                                </span>
+                                <div class="signature">
+                                    <br />
+                                    <br />
+                                    <div>________________</div>
+                                    <div>
+                                        <span t-field="o.solicitante_id.name" />
                                     </div>
                                 </div>
-                                <div class="col-4">
-                                    <span>
-                                        <strong>Autorización Nivel 1:</strong>
-                                        <br />
-                                    </span>
-                                    <div>
-                                        <span t-field="o.auth_user1.name" />
-                                    </div>
-                                    <div class="signature">
-                                        <t t-if="o.auth_check1">
-                                            <input type="checkbox" class="btn-check" id="auth_check1_checkbox" checked="checked" />
-                                        </t>
-                                        <t t-if="not o.auth_check1">
-                                            <input type="checkbox" class="btn-check" id="auth_check1_checkbox" />
-                                        </t>
-                                    </div>
+                            </div>
+                            <div class="col-4">
+                                <span>
+                                    <strong>Autorización Nivel 1:</strong>
+                                    <br />
+                                </span>
+                                <div>
+                                    <span t-field="o.auth_user1.name" />
                                 </div>
-                                <div class="col-4">
-                                    <span>
-                                        <strong>Autorización Nivel 2:</strong>
-                                        <br />
-                                    </span>
-                                    <div>
-                                        <span t-field="o.auth_user2.name" />
-                                    </div>
-                                    <div class="signature">
-                                        <t t-if="o.auth_check2">
-                                            <input type="checkbox" id="auth_check2_checkbox" checked="checked" />
-                                        </t>
-                                        <t t-if="not o.auth_check2">
-                                            <input type="checkbox" id="auth_check2_checkbox" />
-                                        </t>
-                                    </div>
+                                <div class="signature">
+                                    <t t-if="o.auth_check1">
+                                        <input type="checkbox" class="btn-check" id="auth_check1_checkbox" checked="checked" />
+                                    </t>
+                                    <t t-if="not o.auth_check1">
+                                        <input type="checkbox" class="btn-check" id="auth_check1_checkbox" />
+                                    </t>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <span>
+                                    <strong>Autorización Nivel 2:</strong>
+                                    <br />
+                                </span>
+                                <div>
+                                    <span t-field="o.auth_user2.name" />
+                                </div>
+                                <div class="signature">
+                                    <t t-if="o.auth_check2">
+                                        <input type="checkbox" id="auth_check2_checkbox" checked="checked" />
+                                    </t>
+                                    <t t-if="not o.auth_check2">
+                                        <input type="checkbox" id="auth_check2_checkbox" />
+                                    </t>
                                 </div>
                             </div>
                         </div>
