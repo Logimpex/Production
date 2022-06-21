@@ -48,8 +48,8 @@
         # Sequence
         'data/ir_sequence_data.xml',
         # Reports
-        #'report/report.xml',
-        #'report/transferencia_form.xml',
+        'report/report.xml',
+        'report/transferencia_form.xml',
     ],
     'demo': [],
     'installable': True,
