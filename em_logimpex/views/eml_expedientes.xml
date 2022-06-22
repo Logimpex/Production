@@ -44,6 +44,9 @@
                         <button class="oe_stat_button" type="object" name="action_view_invoices" icon="fa-pencil-square-o" attrs="{'invisible': [('facturas_count', '=', 0)]}">
                             <field string="Facturas" name="facturas_count" widget="statinfo"/>
                         </button>
+                        <button class="oe_stat_button" type="object" name="action_view_transfers" icon="fa-exchange" attrs="{'invisible': [('transferencias_count', '=', 0)]}">
+                            <field string="Transferencias" name="transferencias_count" widget="statinfo"/>
+                        </button>
                         <button class="oe_stat_button" type="object" name="action_view_payments" icon="fa-credit-card" attrs="{'invisible': [('pagos_count', '=', 0)]}">
                             <field string="Pagos" name="pagos_count" widget="statinfo"/>
                         </button>
